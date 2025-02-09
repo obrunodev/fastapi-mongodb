@@ -1,6 +1,10 @@
 from fastapi import FastAPI
-from routes.route import router
+from app.routes.todos import router as todos_routers
 
 app = FastAPI()
 
-app.include_router(router)
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Todo API!"}
+
+app.include_router(todos_routers, prefix='/todos', tags=['Tarefas'])
